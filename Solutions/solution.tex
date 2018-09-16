@@ -1,0 +1,787 @@
+\documentclass[a4paper]{article}
+\usepackage{vntex}
+%\usepackage[english,vietnam]{babel}
+%\usepackage[utf8]{inputenc}
+
+%\usepackage[utf8]{inputenc}
+%\usepackage[francais]{babel}
+\usepackage{a4wide,amssymb,epsfig,latexsym,array,hhline,fancyhdr}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{multicol,longtable,amscd}
+\usepackage{diagbox}%Make diagonal lines in tables
+\usepackage{booktabs}
+\usepackage{alltt}
+\usepackage[framemethod=tikz]{mdframed}% For highlighting paragraph backgrounds
+\usepackage{caption,subcaption}
+
+\usepackage{lastpage}
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{graphicx}							% Standard graphics package
+\usepackage{array}
+\usepackage{tabularx, caption}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{graphics}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{epsfig}
+\usepackage{tikz}
+\usetikzlibrary{arrows,snakes,backgrounds}
+\usepackage[unicode]{hyperref}
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
+%\usepackage{pstcol} 								% PSTricks with the standard color package
+
+%\usepackage{fancyhdr}
+\setlength{\headheight}{40pt}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyhead[L]{
+ \begin{tabular}{rl}
+    \begin{picture}(25,15)(0,0)
+    \put(0,-8){\includegraphics[width=8mm, height=8mm]{Images/hcmut.png}}
+    %\put(0,-8){\epsfig{width=10mm,figure=hcmut.eps}}
+   \end{picture}&
+	%\includegraphics[width=8mm, height=8mm]{hcmut.png} & %
+	\begin{tabular}{l}
+		\textbf{\bf \ttfamily Trường Đại Học Bách Khoa Tp.Hồ Chí Minh}\\
+		\textbf{\bf \ttfamily Khoa Khoa Học và Kỹ Thuật Máy Tính}
+	\end{tabular} 	
+ \end{tabular}
+}
+\fancyhead[R]{
+	\begin{tabular}{l}
+		\tiny \bf \\
+		\tiny \bf 
+	\end{tabular}  }
+\fancyfoot{} % clear all footer fields
+\fancyfoot[L]{\scriptsize \ttfamily Bài tập về nhà môn Cấu trúc Rời rạc cho KHMT}
+\fancyfoot[R]{\scriptsize \ttfamily Trang {\thepage}/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+
+%%%
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+\makeatletter
+\newcounter {subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
+\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\newcommand*\l@subsubsubsection{\@dottedtocline{3}{10.0em}{4.1em}}
+\newcommand*{\subsubsubsectionmark}[1]{}
+\makeatother
+
+\sloppy
+\captionsetup[figure]{labelfont={small,bf},textfont={small,it},belowskip=-1pt,aboveskip=-9pt}
+%space remove between caption, figure, and text
+\captionsetup[table]{labelfont={small,bf},textfont={small,it},belowskip=-1pt,aboveskip=7pt}
+%space remove between caption, table, and text
+
+%\floatplacement{figure}{H}%forced here float placement automatically for figures
+%\floatplacement{table}{H}%forced here float placement automatically for table
+%the following settings (11 lines) are to remove white space before or after the figures and tables
+%\setcounter{topnumber}{2}
+%\setcounter{bottomnumber}{2}
+%\setcounter{totalnumber}{4}
+%\renewcommand{\topfraction}{0.85}
+%\renewcommand{\bottomfraction}{0.85}
+%\renewcommand{\textfraction}{0.15}
+%\renewcommand{\floatpagefraction}{0.8}
+%\renewcommand{\textfraction}{0.1}
+\setlength{\floatsep}{5pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{5pt plus 2pt minus 2pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH \\
+TRƯỜNG ĐẠI HỌC BÁCH KHOA \\
+KHOA KHOA HỌC - KỸ THUẬT MÁY TÍNH 
+\end{center}
+
+\vspace{1cm}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=3cm]{Images/hcmut.png}
+\end{center}
+\end{figure}
+
+\vspace{1cm}
+
+
+\begin{center}
+\begin{tabular}{c}
+\multicolumn{1}{l}{\textbf{{\Large CẤU TRÚC RỜI RẠC CHO KHMT}}}\\
+~~\\
+\hline
+\\
+\textbf{{\Large Nhóm: Discrete Masters}}\\
+\\
+\textbf{{\Huge Bài tập về nhà}} \\ \\ \\
+
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{1.5cm}
+
+\begin{table}[h]
+\begin{tabular}{rrl} 
+\hspace{5 cm} & SV thực hiện: & Nguyễn Thành Lưu -- 1813017 (Nhóm trưởng) \\
+& & Lê Khắc Minh Đăng -- 88471475 \\
+& & Bùi Ngô Hoàng Long -- 36811334 \\
+& & Lê Bá Thông -- 97501334 \\
+& & Hồ Văn Lợi -- 12341334 \\
+\end{tabular}
+\end{table}
+\vspace{1.5cm}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+\section{DS\_propositionallogic.pdf}
+\subsection{Bài tập bắt buộc}
+\subsubsection{Bài tập 1}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 2}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 3}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 4}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 5}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 6}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 7}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 8}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 9}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 10}
+\textbf{Đề bài: } Show that these compound propositionals are logically equivalent by developing a series of logical equivalences \\\ \\\
+a) $\lnot(p\rightarrow (\lnot q \land r))$ and $p \land (q \lor \lnot r)$.\\\
+b) $\lnot[(p \land (q\lor r)) \land (\lnot p \lor \lnot q \lor r)]$ and $\lnot p \lor \lnot r$. \\\
+c) $\lnot [[[[(p \land q)\land r] \lor [(p \land r) \land \lnot r]] \lor \lnot q] \rightarrow s]$ and $[(p \land r) \lor \lnot q] \land \lnot s$. \\\ \\\
+\textbf{Lời giải:} \\\ \\\
+a) Ta có: \\\
+$\lnot(p\rightarrow (\lnot q \land r)) \\\equiv \lnot(\lnot p \lor(\lnot q \land r)) \\\equiv p \land \lnot (\lnot q \land r) \\\equiv p \land (q \lor \lnot r)$ \\\ \\\
+b) Ta có: \\\
+$\lnot[(p \land (q\lor r)) \land (\lnot p \lor \lnot q \lor r)] \\\equiv \lnot (p \land (q\lor r)) \lor \lnot(\lnot p \lor \lnot q \lor r) \\\equiv (\lnot p \lor \lnot (q\lor r)) \lor (p \land q \land \lnot r) \\\equiv \lnot p \lor (p \land q \land \lnot r) \lor (\lnot q \land \lnot r) \\\equiv ((\lnot p \lor p) \land (\lnot p \lor (q \land \lnot r))) \lor (\lnot q \land \lnot r) \\\equiv (\textbf{T} \land (\lnot p \lor (q \land \lnot r))) \lor (\lnot q \land \lnot r) \\\equiv \lnot p \lor (q \land \lnot r) \lor (\lnot q \land \lnot r) \\\equiv \lnot p \lor (\lnot r \land (q \lor \lnot q)) \\\equiv \lnot p \lor (\lnot r \land \textbf{T}) \\\equiv \lnot p \lor \lnot r$ \\\ \\\
+c) Ta có: \\\
+$\lnot [[[[(p \land q)\land r] \lor [(p \land r) \land \lnot r]] \lor \lnot q] \rightarrow s] \\\equiv \lnot [[(p \land q \land r) \lor (p \land (r \land \lnot r)) \lor \lnot q] \rightarrow s] \\\equiv \lnot [[(p \land q \land r) \lor (p \land \textbf{F}) \lor \lnot q] \rightarrow s] \\\equiv \lnot [[(p \land q \land r) \lor \textbf{F} \lor \lnot q] \rightarrow s]\\\equiv \lnot [[(p \land q \land r) \lor \lnot q] \rightarrow s]\\\equiv \lnot [\lnot [(p \land q \land r) \lor \lnot q] \lor s] \\\equiv [(p \land q \land r) \lor  \lnot q]\land \lnot s\\\equiv [[(p \land r) \lor  \lnot q] \land (q \lor \lnot q)]\land \lnot s\\\equiv [[(p \land r) \lor  \lnot q] \land \textbf{T}]\land \lnot s \\\equiv [(p \land r) \lor \lnot q] \land \lnot s$
+
+\clearpage
+\subsubsection{Bài tập 11}
+\textbf{Đề bài:} You cannot edit a protected Wikipedia entry unless you are an administrator. Express your answer in terms of $e$: “You can edit a protected Wikipedia entry” and $a$: “You are an administrator.” \\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Ta có thể biểu diễn sang: $\lnot a \rightarrow \lnot e$.
+\clearpage
+\subsubsection{Bài tập 12}
+\textbf{Đề bài:} You can see the movie only if you are over 18 years old or you have the permission of a parent. Express your answer in terms of $m$: “You can see the movie,” $e$: “You are over 18 years old,” and $p$: “You have the permission of a parent.” \\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Ta có thể biểu diễn sang: $\lnot (e \lor p) \rightarrow \lnot m$.
+\clearpage
+\subsubsection{Bài tập 13}
+\textbf{Đề bài:} You can graduate only if you have completed the requirements of your major and you do not owe money to the university and you do not have an overdue library book. Express your answer in terms of
+$g$: “You can graduate,” $m$: “You owe money to the university,” $r$: “You have completed the requirements
+of your major,” and $b$: “You have an overdue library book.” \\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Ta có thể biểu diễn sang: $(m \lor \lnot r \lor b) \rightarrow \lnot g$.
+\clearpage
+\subsubsection{Bài tập 14}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 15}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 16}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 17}
+
+\clearpage
+\clearpage
+
+\section{New\_Homework01\_Propositional\_Logic.pdf}
+\subsection{Bài tập bắt buộc}
+\subsubsection{Bài tập 1}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 2}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 3}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 4}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 5}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 6}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 7}
+\textbf{Đề bài: }Find an assignment of the variables $p, q, r$ such that the proposition $(p \lor \lnot q) \land (p \lor q) \land (q \lor r) \land (q \lor \lnot r) \land (r \lor \lnot p) \land (r \lor p)$ is satisfied. For a bonus 5 points, prove that this assignment is unique. \\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Khi $p$ đúng, $q$ đúng và $r$ đúng thì mệnh đề trên thoả mãn. \\\ \\\
+* Chứng minh bộ ba $p,q,r$ làm cho mệnh đề đúng là duy nhất: \\\
+Ta có: \\\
+$(p \lor \lnot q) \land (p \lor q) \land (q \lor r) \land (q \lor \lnot r) \land (r \lor \lnot p) \land (r \lor p) \\\equiv  (p \lor (\lnot q \land q)) \land (q \lor (\lnot r \land r)) \land (r \lor (\lnot p \land p))\\\equiv (p \lor \textbf{F}) \land (q \lor \textbf{F}) \land (r \lor \textbf{F}) \\\equiv p \land q \land r$ \\\
+Mệnh đề này đúng khi và chỉ khi cả ba biến $p,q,r$ đều nhận chân trị đúng. \\\
+Ta có điều phải chứng minh.
+\clearpage
+\subsubsection{Bài tập 8}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsection{Bonus}
+\textbf{Bài tập 1.3.12:} Show that each conditional statement here is a tautology without using truth tables: 
+\begin{enumerate}[a)]
+	\item $[\lnot p \land (p \lor q)] \rightarrow q$
+	\item $[(p \rightarrow q) \land (q \rightarrow r)] \rightarrow (p \rightarrow r)$
+	\item $[p \land (p \rightarrow q)] \rightarrow q$
+	\item $[(p \lor q) \land (p \rightarrow r) \land (q \rightarrow r)] \rightarrow r$
+\end{enumerate}
+\textbf{Lời giải: }
+\begin{enumerate}[a)]
+	\item $[\lnot p \land (p \lor q)] \rightarrow q \\\equiv \lnot[\lnot p \land (p \lor q)] \lor q \\\equiv p \lor (\lnot p \land \lnot q) \lor q \\\equiv ((p \lor \lnot p) \land (p \lor \lnot q)) \lor q \\\equiv (\textbf{T} \land (p \lor \lnot q))\lor q \\\equiv p \lor \lnot q \lor q \equiv p \lor \textbf{T} \equiv \textbf{T}$
+	\item $[(p \rightarrow q) \land (q \rightarrow r)] \rightarrow (p \rightarrow r) \\\equiv \lnot [(\lnot p \lor q) \land (\lnot q \lor r)] \lor (\lnot p \lor r) \\\equiv (p \land \lnot q) \lor (q \land \lnot r) \lor (\lnot p \lor r) \\\equiv (p \land \lnot q)\lor \lnot p \lor (q \land \lnot r) \lor r \\\equiv \textbf{T} \lor \textbf{T} \equiv \textbf{T}$
+	\item $[p \land (p \rightarrow q)] \rightarrow q \\\equiv \lnot(p \land (\lnot p \lor q))\lor q \\\equiv \lnot p \lor (p \land \lnot q) \lor q \\\equiv \textbf{T} \lor q \equiv \textbf{T}$
+	\item $[(p \lor q) \land (p \rightarrow r) \land (q \rightarrow r)] \rightarrow r \\\equiv \lnot [(p \lor q) \land (\lnot p \lor r) \land (\lnot q \lor r)] \lor r \\\equiv (\lnot p \land \lnot q) \lor (p \land \lnot r) \lor (q \land \lnot r) \lor r \\\equiv (\lnot p \land \lnot q) \lor (p \land \lnot r) \lor \textbf{T} \equiv \textbf{T}$
+\end{enumerate}
+\clearpage
+
+\section{DS\_predicatelogic.pdf}
+\subsection{Bài tập bắt buộc}
+\subsubsection{Bài tập 3}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 4}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 5}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 6}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 7}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 8}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 9}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 10}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 11}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 12}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 13}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 14}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 15}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 16}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 17}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 18}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 19}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 20}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 21}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 22}
+\textbf{Đề bài: }Prove that if $x$ is irrational, then $1/x$ is irrational. \\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Ta chứng minh bài toán bằng phương pháp phản chứng. Giả sử rằng tồn tại một số vô tỉ $x$ sao cho $1/x$ là số hữu tỉ. Vì $1/x$ là một số hữu tỉ nên tồn tại hai số nguyên $a,b (b \neq 0)$ sao cho :$\frac{1}{x} = \frac{a}{b}.$ Tương đương với $x = \frac{b}{a}$. Suy ra $x$ là số hữu tỉ (mâu thuẫn với $x$ là số vô tỉ). \\\
+Vậy ta có điều phải chứng minh.
+\clearpage
+\subsubsection{Bài tập 23}
+\textbf{Đề bài: } Use a proof by contraposition to show that if $x + y \geq 2$, where $x$ and $y$ are real numbers, then $x \geq 1$ or $y \geq 1$.\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Ta sẽ chứng minh rằng, nếu $x < 1$ và $y < 1$ thì $x+y< 2$. \\\
+Thật vậy, ta có $x < 1$ và $y < 1 \Leftrightarrow x+y < 1+1 = 2$. \\\
+Phản đảo lại, ta được: nếu $x+y \geq 2$ thì $x \geq 1$ hoặc $y \geq 1$. \\\
+Ta có điều phải chứng minh.
+
+\clearpage
+\subsubsection{Bài tập 24}
+\textbf{Đề bài: } Show that if $n$ is an integer and $n^3 + 2015$ is odd, then $n$ is even using \\\ \\\
+a) a proof by contraposition. \\\
+b) a proof by contradiction.\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Xét $n$ là một số nguyên \\\
+a) Ta sẽ chứng minh rằng nếu $n$ là số lẻ thì $n^3 + 2015$ chẵn. \\\
+Thật vậy, nếu $n$ là số lẻ thì tồn tại số nguyên $k$ sao cho $n = 2k+1$. Khi đó: $n^3+2015 = (2k+1)^3+2015=8k^3 + 12k^2+6k + 2016$ là một số chẵn.\\\
+Phản đảo lại, ta được: nếu $n^3+2015$ là số lẻ thì $n$ là số chẵn. \\\
+Ta có điều phải chứng minh. \\\ \\\
+b) Ta sẽ đi chứng minh phản chứng bài toán. Giả sử tồn tại một số $n$ lẻ sao cho $n^3+2015$ lẻ. Vì $n$ là số lẻ nên tồn tại số nguyên $k$ sao cho $n = 2k+1$. Khi đó: $n^3+2015 = (2k+1)^3+2015=8k^3 + 12k^2+6k + 2016$ là một số chẵn (mâu thuẫn với dữ kiện $n^3 + 2015$ lẻ). \\\
+Ta có điều phải chứng minh.
+
+\clearpage
+\subsubsection{Bài tập 25}
+\textbf{Đề bài: } Prove that if $n$ is an integer and $3n + 2$ is even, then $n$ is even using \\\ \\\
+a) a proof by contraposition. \\\
+b) a proof by contradiction.\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Xét $n$ là số một số nguyên \\\
+a) Ta sẽ chứng minh rằng nếu $n$ là số lẻ thì $3n+2$ lẻ. \\\
+Thật vậy, nếu $n$ là số lẻ thì tồn tại số nguyên $k$ sao cho $n = 2k+1$. Khi đó: $3n+2 = 3(2k+1)+2 = 6k + 5$ là một số lẻ.\\\
+Phản đảo lại, ta được: nếu $3n+2$ là số chẵn thì $n$ là số chẵn. \\\
+Ta có điều phải chứng minh. \\\ \\\
+b) Ta sẽ đi chứng minh phản chứng bài toán. Giả sử tồn tại số $n$ lẻ sao cho $3n+2$ chẵn. Vì $n$ là số lẻ nên tồn tại số nguyên $k$ sao cho $n = 2k+1$. Khi đó: $3n+2 = 3(2k+1)+2 = 6k + 5$ là một số lẻ (mâu thuẫn với dữ kiện $3n+2$ chẵn). \\\
+Ta có điều phải chứng minh.
+\\\ \\\
+\clearpage
+\subsubsection{Bài tập 26}
+\textbf{Đề bài: } Prove that if $n$ is a positive integer, then $n$ is odd if and only if $5n + 6$ is odd.\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Xét $n$ là số nguyên dương. \\\
+Ta đi chứng minh hai chiều như sau:
+\begin{enumerate}
+\item Nếu $n$ lẻ thì $5n+6$ lẻ.
+\item Nếu $5n+6$ lẻ thì $n$ nguyên lẻ.
+\end{enumerate}
+* Chiều thứ nhất: \\\
+Vì $n$ lẻ nên tồn tại số nguyên $k$ sao cho $n=2k+1$. Khi đó $5n+6=5(2k+1)+6=10k+11$ là một số lẻ. Vậy chiều này được chứng minh. \\\ \\\
+* Chiều thứ hai: \\\
+Ta chứng minh rằng nếu $n$ chẵn thì $5n+6$ chẵn. Vì $n$ chẵn nên tồn tại số nguyên $k$ sao cho $n=2k$. Khi đó $5n+6=5.2k+6=10k+6$ là một số chẵn. \\\
+Phản đảo lại, ta được: nếu $5n+6$ là số lẻ thì $n$ là số lẻ. Vậy chiều này được chứng minh. \\\ \\\
+Ta có điều phải chứng minh.
+
+\clearpage
+\subsubsection{Bài tập 27}
+\textbf{Đề bài: }Show that these statements about the integer $x$ are equivalent: (i) $3x + 2$ is even, (ii) $x + 5$ is odd,
+(iii) $x^2$ is even.\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Xét $n$ là số nguyên. \\\
+Ta sẽ đi chứng minh 2 vị từ sau:
+\begin{enumerate}
+\item $3x + 2$ chẵn khi và chỉ khi $x + 5$ lẻ.
+\item $x+5$ lẻ khi và chỉ khi $x^2$ chẵn.
+\end{enumerate}
+* Vị từ 1:
+\begin{enumerate}
+\item Nếu $3x+2$ chẵn thì $x+5$ lẻ. \\\
+Ta đi chứng minh rằng nếu $x+5$ chẵn thì $3x+2$ lẻ. \\\
+Thật vậy, vì $x+5$ chẵn nên tồn tại số nguyên $k$ thỏa mãn: $x+5 = 2k$. Khi đó ta có $3x+2=3(x+5)-13=6k-13$ là một số lẻ.  \\\
+Phản đảo lại, ta được nếu $3x+2$ chẵn thì $x+2$ lẻ.
+\item Nếu $x+5$ lẻ thì $3x+2$ chẵn. \\\
+Vì $x+5$ lẻ nên tồn tại số nguyên $k$ thỏa mãn: $x+5 = 2k+1$. Khi đó ta có $3x+2=3(x+5)-13=3(2k+1)-13 = 6k-10$ là một số chẵn.  \\\
+\end{enumerate}
+Vậy ta chứng minh được vị từ 1. \\\ \\\
+* Vị từ 2:
+\begin{enumerate}
+\item Nếu $x^2$ chẵn thì $x+5$ lẻ. \\\
+Ta đi chứng minh rằng nếu $x+5$ chẵn thì $x^2$ lẻ. \\\
+Thật vậy, vì $x+5$ chẵn nên tồn tại số nguyên $k$ thỏa mãn: $x+5 = 2k$. Khi đó ta có $x^2 = (x+5-5)^2=(2k-5)^2 = 4k^2-20k+25$ là một số lẻ.  \\\
+Phản đảo lại, ta được nếu $x^2$ chẵn thì $x+5$ lẻ.
+\item Nếu $x+5$ lẻ thì $x^2$ chẵn. \\\
+Vì $x+5$ lẻ nên tồn tại số nguyên $k$ thỏa mãn: $x+5 = 2k+1$. Khi đó ta có $x^2 = (x+5-5)^2=(2k-4)^2=4(k-2)^2$ là một số chẵn.  \\\
+\end{enumerate}
+Vậy ta chứng minh được vị từ 2. \\\
+Vì (i), (ii), (iii) tương đương nhau nên ta có điều phải chứng minh.
+\clearpage
+\subsubsection{Bài tập 28}
+\textbf{Đề bài: } Prove that if $n$ is an integer, these four statements are equivalent: (i) $n$ is even, (ii) $n + 1$ is odd, (iii) $3n + 1$ is odd, (iv) $3n$ is even.\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Xét $n$ là số nguyên. \\\
+Ta sẽ chứng minh 2 vị từ sau:
+\begin{enumerate}
+\item $n$ chẵn khi và chỉ khi $n+1$ lẻ.
+\item $n$ chẵn khi và chỉ khi $3n$ chẵn.
+\end{enumerate}
+* Vị từ 1: 
+\begin{enumerate}
+\item Nếu $n$ chẵn thì $n+1$ lẻ. \\\
+Vì $n$ chẵn nên tồn tại số nguyên $k$ thỏa: $n=2k$. Khi đó $n+1=2k+1$ là một số lẻ.
+\item Nếu $n+1$ lẻ thì $n$ chẵn. \\\
+Vì $n+1$ lẻ nên tồn tại số nguyên $k$ thỏa: $n+1=2k+1$. Khi đó $n=n+1-1=2k+1-1=2k$ là một số chẵn.
+\end{enumerate}
+Vậy ta chứng minh được vị từ 1. \\\ \\\
+* Vị từ 2:
+\begin{enumerate}
+\item Nếu $n$ chẵn thì $3n$ chẵn \\\
+Vì $n$ chẵn nên tồn tại số nguyên $k$ sao cho $n=2k$. Khi đó $3n=3.2k=6k$ là một số chẵn.
+\item Nếu $3n$ chẵn thì $n$ chẵn \\\
+Ta đi chứng minh rằng nếu $n$ lẻ thì $3n$ lẻ. \\\
+Vì $n$ lẻ nên tồn tại số nguyên $k$ sao cho $n=2k+1$. Khi đó $3n=3.(2k+1) = 6k+3$ là một số lẻ. \\\
+Phản đảo lại, ta được: Nếu $3n$ chẵn thì $n$ chẵn.
+\end{enumerate}
+Vậy ta chứng minh được vị từ 2. \\\
+Ta có $3n+1$ lẻ $\equiv 3n$ chẵn $\equiv n$ chẵn $\equiv n+1$ lẻ. \\\
+Vậy ta có điều phải chứng minh. 
+
+\clearpage
+\subsubsection{Bài tập 29}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 30}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 31}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 32}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 33}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 34}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 35}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\clearpage
+
+\section{New\_Homework02a\_Predicate\_Logic.pdf}
+\subsection{Bài tập bắt buộc}
+\subsubsection{Bài tập 1}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 2}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 3}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 4}
+\textbf{Đề bài:} Use rules of inference to show that if $p \land q$, $r \lor s$, and $p \rightarrow \lnot r$, then $s$ is true. \\\ \\\
+\textbf{Lời giải:} \\\ \\\
+We have:
+\begin{enumerate}
+\item $p \land q$ (Premise).
+\item $p$ (Simplification from (1)).
+\item $p \rightarrow \lnot r$ (Premise).
+\item $\lnot r$ (Modus pones using (2) and (3)).
+\item $r \lor s$ (Premise).
+\item $s$ (Disjunctive syllogism using (4) and (5)).
+\end{enumerate}
+Q.E.D
+
+\clearpage
+\subsubsection{Bài tập 5}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+
+\subsection{Bonus}
+\clearpage
+
+\section{New\_Homework02b\_Proving\_methods.pdf}
+\subsection{Bài tập bắt buộc}
+\subsubsection{Bài tập 1}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 2}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 3}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 4}
+\textbf{Đề bài:} In the country of Togliristan (where Knights, Knaves, and Togglers live), Togglers will alternate between telling the truth and lying (no matter what other people say). You meet two people, A and B. They say, in order: \\\
+
+A : B is a Knave. 
+
+B : A is a Knave.
+
+A : B is a Knight.
+
+B : A is a Toggler.\\\ \\\
+Determine what types of people A and B are. \\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Vì A,B đều có hai câu nói khác nhau nên A và B không thể là Knight được. Ta xét hai trường hợp: 
+\begin{enumerate}
+\item A là Knave \\\
+Vì A là Knave nên A luôn nói dối, hay B không thể là Knave hay Knight. Khi đó B sẽ là Toggler.
+\item A là Toggler \\\
+Nếu B là Knave thì B luôn nói dối, hay A không thể là Knave hay Toggler (mâu thuẫn). Do đó B là Toggler.
+\end{enumerate}
+Vậy (A,B) chỉ có thể là (Knave, Toggler) và (Toggler, Toggler).
+
+\clearpage
+\subsubsection{Bài tập 5}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsection{Bonus}
+\clearpage
+
+\section{Homework03a\_Sets\_Function.pdf}
+\subsection{Bài tập bắt buộc}
+\subsubsection{Bài tập 1}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 2}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 3}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 4}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 5}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 6}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 7}
+\textbf{Đề bài:} Let $A = \{a, b, c\}$, $B = \{1, 2, 3, 4\}$, and $C = \{\pi, \phi, i\}$. Define functions $f : A \rightarrow B$ and $g : B \rightarrow C$ as \\\
+\begin{center}
+$f(x) = \begin{cases} 2, & x=a \\ 3, & x = b \\ 4, & x=c \end{cases}$ \hspace{0.5cm}
+$g(x) = \begin{cases} \pi, & x=1 \\ \phi, & x = 2 \\ i, & x=3 \\ \pi, & x=4 \end{cases}$
+\end{center}
+Consider each of the functions $f$, $g$, $g\circ f$ and determine if they are injective, surjective, or both. \\\ \\\
+\textbf{Lời giải:} \\\ \\\
+Xét ánh xạ $f : A \rightarrow B$. Ta thấy mọi ảnh của $f$ đều riêng biệt nên $f$ là đơn ánh. $f$ không phải toàn ánh vì với $x = 1$ thì không tồn tại $y \in A$ sao cho $f(y) = 1$. Vậy $f$ là đơn ánh. \\\ \\\
+Xét ánh xạ $g : B \rightarrow C$. Ta thấy mọi phần tử $x \in C$ đều có nghịch ảnh trên $B$, nên $g$ là toàn ánh. $g$ không phải là đơn ánh vì $g(1) = g(4) = \pi$. Vậy $g$ là toàn ánh. \\\ \\\
+Xét ánh xạ $g\circ f : A \rightarrow C$.
+Từ hai ánh xạ $f$ và $g$, ta viết lại ánh xạ $g\circ f : A \rightarrow C$ thành: 
+\begin{center}
+$g\circ f = g(f(x)) = \begin{cases} \pi, & f(x)=1 \\ \phi, & f(x) = 2 \\ i, & f(x)=3 \\ \pi, & f(x)=4 \end{cases} = \begin{cases} \phi, & x = a \\ i, & x=b \\ \pi, & x=c \end{cases}$
+\end{center}
+Ta thấy mọi ảnh của $g \circ f$ đều phân biệt và mọi ảnh đều có nghịch ảnh tương ứng. Vậy $g \circ f$ là một song ánh.
+\clearpage
+\subsubsection{Bài tập 8}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsection{Bonus}
+\clearpage
+
+\section{Homework03b\_Sequences.pdf}
+\subsection{Bài tập bắt buộc}
+\subsubsection{Bài tập 1}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 2}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 3}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 4}
+\textbf{Đề bài: }Define a sequence $\{f_n\}_{n=0}^\infty$ as $f_0 = 1$ and for $n \geq 1$, $f_{n+1} = \frac{1}{1+f_n}$. Prove that for $n \geq 0$, $f_n = \frac{F_{n+1}}{F_{n+2}}$, where $\{F_n\}_{n=0}^\infty$ is the Fibonacci sequence. \\\ \\\
+\textbf{Lời giải: } \\\ \\\
+Ta đi chứng minh quy nạp rằng $f_n = \frac{F_{n+1}}{F_{n+2}}$. (1)\\\
+Với $n = 0$, ta có: $f_0 = 1 = \frac{1}{1} = \frac{F_1}{F_2}$. \\\
+Giả sử đẳng thức (1) đúng với mọi $n = k \in \textbf{N}, k \geq 0$.
+Ta chứng minh rằng đẳng thức (1) cũng đúng với $n = k+1$.\\\
+Thật vậy, ta có: \\\
+$f_{n+1} = \frac{1}{1+f_n} = \frac{1}{1+\frac{F_{n+1}}{F{n+2}}} = \frac{F_{n+2}}{F_{n+1} + F{n+2}} = \frac{F_{n+2}}{F_{n+3}}$. \\\
+Theo nguyên lý quy nạp, ta có điều phải chứng minh.
+\clearpage
+\subsubsection{Bài tập 5}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+
+\subsection{Bonus}
+\clearpage
+
+\section{Homework03c\_Sequences\_and\_Sums.pdf}
+\subsection{Bài tập bắt buộc}
+\subsubsection{Bài tập 1}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 2}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 3}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 4}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+\subsubsection{Bài tập 5}
+\textbf{Đề bài:} 
+\\\ \\\
+\textbf{Lời giải:} \\\ \\\
+\clearpage
+
+\clearpage
+
+
+
+\end{document}
+
